@@ -23,9 +23,11 @@ med2 <- med %>% dplyr::mutate(meropenem = ifelse(처방코드 %in% c('XMERO'), 1
                                                             'XDP4D20', 'XDP4D5', 'XDP8D5'), 1, 0),
                               morphinesulfate = ifelse(처방코드 %in% c('XMS10', 'XMS30',
                                                                    'XMS100'), 1, 0),
-                              fentanyl = ifelse(처방코드 %in% c('XFENT', 'XFENT5', 'XFENT15'), 1, 0))
+                              fentanyl = ifelse(처방코드 %in% c('XFENT', 'XFENT5', 'XFENT15'), 1, 0)) %>%
+  dplyr::select(-c(처방코드, 처방명, 총용량, 총용량단위, 횟수, 일수)) %>% unique()
+# 총용량, 총용량단위, 횟수, 일수는 지우고, 투약했는지 여부로만
 
-# 총용량, 총용량단위, 횟수, 일수 ??
+df_med <- med2
 
 # 저장
-save(med2, file = 'C:/Yong/ews/hackathon/csv80000/rdata/약물.RData')
+save(df_med, file = 'C:/Yong/ews/hackathon/csv80000/rdata/약물.RData')
